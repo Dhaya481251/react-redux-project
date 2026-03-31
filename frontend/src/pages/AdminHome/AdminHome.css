@@ -1,0 +1,7 @@
+.home{
+    display: flex;
+    gap:2px;
+}
+.main-content{
+    width:100%
+}

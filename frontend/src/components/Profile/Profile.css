@@ -1,0 +1,151 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  font-family: monospace;
+}
+
+.profile-page h1{
+  color:#1E293B;
+}
+
+.profile-card {
+  background: #1E293B;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #d2b3f5;
+  width: 300px;
+  text-align: center;
+  color: white;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  border: 3px solid #fff;
+}
+
+.upload-section {
+  margin-top: 1rem;
+}
+
+.upload-section input {
+  margin-bottom: 0.5rem;
+}
+
+.upload-section button {
+  background: white;
+  color: #260250ba;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.user-details{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-image-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.profile-image-container .profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #3B82F6;
+}
+
+.edit-icon-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: #3B82F6;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.edit-icon-overlay:hover {
+  background-color: #2563EB;
+  transform: scale(1.1);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 55px;           /* Above the icon */
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #0e42b3;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.edit-icon-overlay:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  bottom: 50px;           /* Slight lift on hover */
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #0e42b3;
+}
+
+.preview-section {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.preview-img {
+  max-width: 200px;
+  border-radius: 12px;
+  border: 3px solid #3B82F6;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.cancel-btn {
+  background-color: #64748b;
+  color: white;
+}
+
+.image-error {
+  color: #ff4d4d;
+  margin-top: 10px;
+}

@@ -1,0 +1,63 @@
+.edit{
+    background: #1e293b;
+    padding: 2rem;
+    position: absolute;
+    top: 25%;
+    border: 2px solid #d2b3f5;
+    border-radius: 20px;
+    left: 37%;
+    width: 300px;
+}
+
+.edit-title{
+    text-align: center;
+    font-family: monospace;
+    color:white;
+}
+
+.edit-form .edit-input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 1rem;
+}
+
+.edit-form .edit-input-field .edit-label{
+    font-family: monospace;
+    color:white;
+}
+
+.edit-form .edit-submit-btn{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    gap:1rem;
+}
+
+.edit-form .edit-submit-btn .admin-edit-btn{
+    background: white;
+    border-radius: 7px;
+    padding: 10px;
+    color:#260250ba;
+    font-weight: bold;
+}
+
+.edit-form .edit-submit-btn .edit-cancel-btn{
+    background: #e10909ba;
+    border-radius: 7px;
+    padding: 10px;
+    color:white;
+    font-weight: bold;
+}
+
+.edit-form .edit-input-field .preview-image{
+    display: flex;
+    justify-content: center;
+}
+
+.edit-form .edit-input-field .preview-image .profile-preview-image{
+    width:50%;
+    border:5px solid #260250ba;
+    border-radius:50%;
+}
+

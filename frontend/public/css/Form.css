@@ -1,0 +1,155 @@
+h1 {
+    font-family: monospace;
+    color: #3B82F6; /* Accent blue for headings */
+    text-align: center;
+}
+
+div {
+    font-family: monospace;
+    color: #F1F5F9; /* Light text for readability */
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+.form-card {
+    margin: 10%;
+    padding: 17px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: #1E293B; /* Dark background like navbar */
+    border-radius: 15px;
+    border: 1px solid #3B82F6; /* Accent border */
+    gap: 1rem;
+    color: #F1F5F9; /* Light text inside card */
+    width: 300px;
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+    gap:6px;
+}
+.input-label label{
+  font-size: 15px;
+  color:#3B82F6;
+  font-weight: 500;
+}
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-label .input-with-icon input {
+    width:100%;
+    border-radius: 10px;
+    border: 1px solid #94A3B8; 
+    text-align: start;
+    padding: 5px 35px 5px 35px;
+    background-color: #0F172A; /* Slightly darker input background */
+    color: #F1F5F9; /* Light text inside input */
+}
+
+.input-with-icon input::placeholder {
+    color: #94A3B8; /* Muted placeholder text */
+}
+
+.input-with-icon .input-icon{
+  position: absolute;
+  left:15px;
+  color:#3b4f70;
+  z-index: 1;
+}
+
+.toggle-password-icon {
+    position: absolute;
+    right: 15px;
+    color: #3b4f70;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.toggle-password-icon:hover {
+    color: #3b4f70;
+}
+
+/* Password Input Wrapper (if you still use .password-input) */
+.password-input {
+    position: relative;
+}
+
+.input-label button {
+    background-color: #3B82F6; /* Accent blue */
+    padding: 7px 15px;
+    color: #F1F5F9; /* Light text */
+    border-radius: 10px;
+    border: 2px solid #1E293B; /* Dark border for depth */
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.input-label button:hover {
+    background-color: #0F172A; /* Dark hover background */
+    color: #3B82F6; /* Accent text on hover */
+    border-color: #3B82F6;
+}
+
+.error-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336;           /* Red background like error toast */
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+  z-index: 10000;
+  animation: slideDown 0.4s ease forwards;
+  border-left: 5px solid #d32f2f;
+}
+
+.error-container::before {
+  content: '⚠️';
+  margin-right: 10px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Optional: Make it disappear after some time */
+.error-container {
+  animation: slideDown 0.4s ease forwards, fadeOut 0.4s 3.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Existing error styles for form validation */
+.error {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 5px;
+  min-height: 20px;
+}
