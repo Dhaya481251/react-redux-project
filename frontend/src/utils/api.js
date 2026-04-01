@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -7,7 +8,6 @@ const api = axios.create({
   }
 });
 
-// Request Interceptor
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -19,30 +19,32 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response Interceptor - Main Fix
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async(error) => {
     if (error.response?.status === 401) {
       const errorMsg = error.response?.data?.error || '';
 
       console.error("401 Error:", errorMsg);
 
-      // 🔥 Special handling when user is deleted by admin
       if (errorMsg === "User no longer exists" || 
           errorMsg.includes("no longer exists")) {
         
         console.log("Account was deleted by admin → Logging out...");
         
-        // Clear all auth data
-        localStorage.removeItem('token');
-        localStorage.removeItem('currentUser');
-        
-        alert("Your account has been deleted by the admin");
-        
-        // Redirect to login
-        window.location.href = '/login';
+        await Swal.fire({
+          icon: 'error',
+          title: 'Account Deleted',
+          text: 'Your account has been deleted by the admin',
+          confirmButtonText: 'OK'
+        })
+        .then(() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('currentUser');
+          window.location.href = '/register';
+        })
       }
+      
     }
     return Promise.reject(error);
   }

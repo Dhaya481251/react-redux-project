@@ -12,11 +12,11 @@ const HomePage = () => {
     if(error){
       dispatch(logout('user'));
     }
-  },[])
+  },[error])
 
   useEffect(() => {
     dispatch(fetchUser());
-  },[])
+  },[user])
 
   return (
     <>
