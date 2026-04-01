@@ -9,13 +9,7 @@ import { logout } from '../../features/auth/authSlice';
 import demoProfileImage from '../../assets/userProfile.jpg';
 
 const AdminNavbar = () => {
-    const [hover,setHover] = useState(false)
-
-
-    const handleHover = () => setHover(true);
-    const removeHover = () => setHover(false);
-
-    const { currentUser,role } = useSelector((state) => state.auth);
+    const { currentUser } = useSelector((state) => state.auth.currentUser);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,20 +30,8 @@ const AdminNavbar = () => {
                 <li><NavLink to='/admin' className='home-user'>Home</NavLink></li>
             </div>
             <div className='lists'>
-                <li onMouseEnter={handleHover}>
-                    <img className='profile-image' src={currentUser.profileImage ? `http://localhost:5000${currentUser.profileImage}` : demoProfileImage} alt="" />{currentUser.name} <span>
-                        {
-                        hover===true ? <img className="arrow" src={upArrow} alt="" /> : 
-                        <img className="arrow" src={downArrow} alt=""/>
-                        }
-                        </span>
-                    {(currentUser && role==='admin' && hover) && (
-                        <div className="user-list" onMouseLeave={removeHover}>
-                            <ul>
-                                <li>My Profile <span><img className="arrow" src={rightArrow} alt="" /></span></li>
-                            </ul>
-                        </div>
-                    )}
+                <li>
+                    <img className='profile-image' src={currentUser.profileImage ? `http://localhost:5000${currentUser.profileImage}` : demoProfileImage} alt="" />{currentUser.name} 
                 </li>
                 <li><button className='login-btn' onClick={logoutHandler}>Logout</button></li>
             </div>
