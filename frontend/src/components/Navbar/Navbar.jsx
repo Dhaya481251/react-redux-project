@@ -36,9 +36,6 @@ const Navbar = () => {
             <div className='lists'>
                 <li className='logo'>Puzl Mart</li>
                 <li><NavLink to='/' className='home-user'>Home</NavLink></li>
-                <li>Products</li>
-                <li>Contact Us</li>
-                <li>About Us</li>
             </div>
             <div className='lists'>
                 <li onMouseEnter={handleHover}>
