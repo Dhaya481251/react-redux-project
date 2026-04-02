@@ -10,12 +10,12 @@ import { fetchUsers } from '../../features/admin/adminSlice';
 
 const AdminHome = () => {
   const [activeSection, setActivateSection] = useState('dashboard');
-  const users = useSelector((state) => state.admin.users);
+  const admin = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  },[users]);
+    dispatch(fetchUsers(''));
+  },[admin]);
 
   const renderContent = () => {
     switch (activeSection){

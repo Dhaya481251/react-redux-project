@@ -43,6 +43,7 @@ api.interceptors.response.use(
           localStorage.removeItem('currentUser');
           window.location.href = '/register';
         })
+        return Promise.reject(error);
       }
       
     }

@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../../public/css/Navbar.css';
-import downArrow from '../../assets/downArrow.svg';
-import upArrow from '../../assets/upArrow.svg';
-import rightArrow from '../../assets/rightArrow.svg';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
 import demoProfileImage from '../../assets/userProfile.jpg';
 
 const AdminNavbar = () => {
-    const { currentUser } = useSelector((state) => state.auth.currentUser);
-
+    const currentUser = useSelector((state) => state.auth.currentUser);
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

@@ -6,7 +6,7 @@ import { fetchUsers, deleteUser } from '../../features/admin/adminSlice';
 import demoProfileImage from '../../assets/userProfile.jpg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const UsersList = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,12 @@ const UsersList = () => {
     dispatch(fetchUsers(searchTerm.trim()));
   }
 
+  const handleClear = () => {
+    setSearchTerm('');
+    setSearchQuery('');
+    dispatch(fetchUsers(''))
+  }
+
   const handleDelete = async (userId) => {
     if (!window.confirm('Are you sure you want to elete this user?')) return;
 
@@ -38,7 +44,8 @@ const UsersList = () => {
     <div className="users-list">
       <h1 className="list-heading">Users Management</h1>
       <div className="search-container">
-        <form onSubmit={handleSearch}>
+        <form onSubmit={handleSearch} className='search-form'>
+          <div className="search-input-wrapper">
         <input
           type="text"
           placeholder="Search by username or email..."
@@ -46,13 +53,19 @@ const UsersList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
         />
+        {searchTerm && (
+          <button type='button' className='clear-btn' onClick={handleClear}>
+            <FontAwesomeIcon icon={faTimes}/>
+          </button>
+        )}
+        </div>
         <button type='submit' className='search-btn'>
           {loading ? 'searching...' : <FontAwesomeIcon icon={faSearch}/>}
         </button>
         </form>
       </div>
       {users.length === 0 ? (
-        <p style={{ width: '100%',color:'black' }}>No users found</p>
+        <p style={{color:'black',textAlign:'center',fontWeight:'800',fontSize:'1.5rem',marginTop:'10rem'}}>No users found</p>
       ) : (
         <table>
           <thead>
