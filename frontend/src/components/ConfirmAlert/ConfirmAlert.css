@@ -1,0 +1,41 @@
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box{
+    background:#fff;
+    padding:20px;
+    border-radius: 8px;
+    min-width: 300px;
+    text-align: center;
+}
+
+.actions{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.confirmDeleteButton{
+    background: #0077ff;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+
+.confirmCancelButton{
+    background: red;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}

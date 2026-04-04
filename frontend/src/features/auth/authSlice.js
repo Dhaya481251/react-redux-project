@@ -190,13 +190,6 @@ const authSlice = createSlice({
       .addCase(updateProfileImage.fulfilled, (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
-        // if (state.currentUser) {
-        //   state.currentUser = {
-        //     ...state.currentUser,
-        //     profileImage: action.payload.profileImage,
-        //   };
-        //   localStorage.setItem("currentUser",JSON.stringify(state.currentUser));
-        // }
         state.error = null;
         localStorage.setItem("currentUser",JSON.stringify(action.payload));
       })

@@ -7,12 +7,15 @@ import demoProfileImage from '../../assets/userProfile.jpg';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import ConfirmAlert from '../ConfirmAlert/ConfirmAlert';
 
 const UsersList = () => {
   const dispatch = useDispatch();
   const {users,loading,error} = useSelector((state) => state.admin);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUsers(''))
@@ -30,15 +33,22 @@ const UsersList = () => {
     dispatch(fetchUsers(''))
   }
 
+  const handleDeleteClick = (userId) => {
+    setSelectedUserId(userId);
+    setOpenConfirm(true);
+  }
+
   const handleDelete = async (userId) => {
-    if (!window.confirm('Are you sure you want to elete this user?')) return;
+    // if (!window.confirm('Are you sure you want to delete this user?')) return;
 
     try {
-      await dispatch(deleteUser(userId)).unwrap();
+      await dispatch(deleteUser(selectedUserId)).unwrap();
       dispatch(fetchUsers(searchQuery));
     } catch (err) {
       console.error('Delete error:', err);
-    } 
+    } finally{
+      setOpenConfirm(false);
+    }
   };
   return (
     <div className="users-list">
@@ -99,7 +109,8 @@ const UsersList = () => {
                     <button className="edit-btn">
                       <NavLink to={`/admin/editUser?userId=${user._id}`} style={{textDecoration:'none',color:'white'}}>Edit</NavLink>
                     </button>
-                    <button className="delete-btn" onClick={() => handleDelete(user._id)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteClick(user._id)}>Delete</button>
+                    <ConfirmAlert open={openConfirm} message="Are you sure you want to delete the user?" onConfirm={handleDelete} onCancel={() => setOpenConfirm(false)}/>
                   </div>
                 </td>
               </tr>
