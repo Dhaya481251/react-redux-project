@@ -140,37 +140,6 @@ const editUser = async(req,res) => {
     }
 }
 
-// const deleteUser = async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const deleteUser = await User.findById(id);
-
-//         if (!deleteUser) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-
-//         // Check if the user being deleted is the logged-in user
-//         await deleteUser.deleteOne();
-
-//         if (req.user && req.user._id.toString() === id) {
-//             // If the logged-in user is deleted, clear their cookie and log them out
-//             res.cookie('user_jwt', '', {
-//                 httpOnly: true,
-//                 expires: new Date(0),  // Expire the cookie immediately
-//                 sameSite: 'strict',     // Optional, adjust according to your security needs
-//             });
-//             return res.status(200).json({ message: 'User deleted and logged out successfully' });
-//         }
-
-//         // If it's not the logged-in user, just return the remaining users
-//         const users = await User.find({ isAdmin: false }).select('-password');
-//         return res.status(200).json(users);
-
-//     } catch (err) {
-//         return res.status(500).json({ message: 'Internal server error' });
-//     }
-// };
-
 const deleteUser = async(req,res) => {
     const {id} = req.params;
     const deleteUser = await User.findById(id);
@@ -195,56 +164,3 @@ module.exports = {
     deleteUser
 }
 
-// const deleteUser = async(req,res) => {
-//     try {
-//         const {id} = req.params;
-//         const deleteUser = await User.findById(id);
-
-//         if(!deleteUser){
-//             return res.status(404).json({message:'User not found'});
-//         }
-
-//         await deleteUser.deleteOne();
-
-//         if(req.user && req.user._id.toStrin() === id){
-//             res.cookie('user_jwt','',{
-//                 httpOnly:true,
-//                 expires: new Date(0),
-//                 sameSite:'strict'
-//             });
-//             return res.status(200).json({message:'User deleted successfully'});
-//         }
-//         const users = await User.find({isAdmin:false});
-//         users.filter((user) => user._id!==deleteUser._id);
-//         return res.status(200).json({message:'User deleted successfully'})
-//     } catch (err) {
-//         return res.status(500).json({message:'Internal server error'})
-//     }
-// }
-
-// const getUsers = async(req,res) => {
-//     try {
-//         // const { search } = req.query;
-//         // if(search){
-//         //     query.$or = [
-//         //         {name:{$regex:search,$options:'i'}},
-//         //         {email:{$regex:search,$options:'i'}}
-//         //     ]
-//         // }
-//         // const users = await User.find({search,isAdmin:false});
-//         // res.status(200).json(users);
-
-//         const { search } = req.query;
-//         if(search && search.trim() !== ''){
-//             query.$or = [
-//                 {name:{$regex:search,$options:'i'}},
-//                 {email:{$regex:search,$options:'i'}}
-//             ]
-//         }
-
-//         const users = (await User.find({search,isAdmin:false})).sort({createdAt:-1});
-//         res.status(200).json(users);
-//     } catch (error) {
-//         console.error('search error : ',error);
-//     }
-// }
