@@ -86,7 +86,7 @@ const loadHome = async(req,res) => {
     try {
         const userId = req.user._id;
         if(!userId){
-            return res.status(400).json({message:'Welcome to Home. Please login'})
+            return res.status(404).json({message:'UserId not found'})
         }
         const user = await User.findById(userId)
 
@@ -134,14 +134,3 @@ module.exports = {
     updateProfileImage,
 }
 
-// const checkLoggedIn = async(req,res) => {
-//     try {
-//         const user = await User.findById(req.user._id);
-//         if(!user){
-//             return res.status(404).json(null)
-//         }
-//         return res.status(200).json(user)
-//     } catch (error) {
-//         return res.status(500).json({message:'Internal server error'});
-//     }
-// }

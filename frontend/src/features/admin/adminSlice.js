@@ -2,9 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import api from '../../utils/api';
 
-export const fetchUsers = createAsyncThunk('admin/fetchUsers',async(search='',{rejectWithValue}) => {
+export const fetchUsers = createAsyncThunk('admin/fetchUsers',async({search='',page=1,limit=5},{rejectWithValue}) => {
     try {
-        const url = search ? `/admin/users?search=${encodeURIComponent(search.trim())}`:'/admin/users';
+        let url = `/admin/users?page=${page}&limit=${limit}`;
+        if(search && search.trim()!==''){
+            url+=`&search=${encodeURIComponent(search.trim())}`
+        }
+        // const url = search ? `/admin/users?search=${encodeURIComponent(search.trim())}`:'/admin/users';
         const {data} = await api.get(url,{withCredentials:true});
         return data;
     } catch (err) {
@@ -39,22 +43,50 @@ export const deleteUser = createAsyncThunk('admin/deleteUser',async(userId,{reje
     }
 })
 
+export const createUser = createAsyncThunk('admin/createUser',async(credentials,{rejectWithValue}) => {
+    try {
+        const { data } = await api.post('/admin/create',credentials,{withCredentials:true});
+        return {...data,role:'user'};
+    } catch (error) {
+        return rejectWithValue(err.response.data.message || 'User creation in admin side failed');
+    }
+});
+
 const initialState = {
     users:[],
+    currentPage:1,
+    totalPages:1,
+    totalUsers:0,
+    hasNext:false,
+    hasPrev:false,
     loading:false,
-    error:null
+    error:null,
+    searchQuery:''
 }
 const adminSlice = createSlice({
     name:'admin',
     initialState,
-    reducers:{},
+    reducers:{
+        setPage: (state,action) => {
+            state.currentPage = action.payload;
+        },
+        setSearch:(state,action) => {
+            state.searchQuery = action.payload;
+            state.currentPage = 1;
+        }
+    },
     extraReducers:(builder) => {
         builder
         .addCase(fetchUsers.pending,(state) => {
             state.loading = true;
         })
         .addCase(fetchUsers.fulfilled, (state,action) => {
-            state.users = action.payload;
+            state.users = action.payload.users;
+            state.currentPage = action.payload.currentPage;
+            state.totalPages = action.payload.totalPages;
+            state.totalUsers = action.payload.totalUsers;
+            state.hasNext = action.payload.hasNext;
+            state.hasPrev = action.payload.hasPrev;
             state.loading = false;
         })
         .addCase(fetchUsers.rejected,(state,action) => {
@@ -79,16 +111,29 @@ const adminSlice = createSlice({
 
         .addCase(deleteUser.pending,(state) => {
                 state.loading = true;
-            })
-            .addCase(deleteUser.fulfilled, (state,action) => {
+        })
+        .addCase(deleteUser.fulfilled, (state,action) => {
                 state.loading = false;
                 state.users = state.users.filter((user) => user._id.toString() !== action.meta.arg);
-            })
-            .addCase(deleteUser.rejected, (state,action) => {
+        })
+        .addCase(deleteUser.rejected, (state,action) => {
                 state.loading = false;
                 state.error = action.payload;
-            })
+        })
+
+        .addCase(createUser.pending,(state) => {
+            state.loading = true;
+        })
+        .addCase(createUser.fulfilled,(state,action) => {
+            state.loading = false;
+            state.users = [...state.users,action.payload];
+        })
+        .addCase(createUser.rejected,(state,action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
     }
 })
 
+export const { setPage, setSearch } = adminSlice.actions; 
 export default adminSlice.reducer;

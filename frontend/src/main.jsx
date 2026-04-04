@@ -15,6 +15,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.jsx';
 import AdminProtectedRoute from './components/ProtectedRoute/AdminProtectedRoute.jsx';
 import EditUser from './components/EditUser/EditUser.jsx';
 import Profile from './components/Profile/Profile.jsx';
+import CreateUser from './components/CreateUser/CreateUser.jsx';
 
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/admin/login' element={<AdminLoginForm/>}/>
     <Route index={true} path='/admin' element={<AdminProtectedRoute><AdminHome/></AdminProtectedRoute>}/>
     <Route path='/admin/editUser' element={<EditUser/>}/>
+    <Route path='/admin/createUser' element={<CreateUser/>}/>
   </Route>
   </>
 ))

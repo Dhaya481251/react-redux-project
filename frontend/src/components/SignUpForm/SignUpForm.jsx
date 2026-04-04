@@ -36,7 +36,7 @@ const SignUpForm = () => {
 
     if(!value || value.trim() === ""){
         return "Name field is required";
-    }else if(!validName.test(name)){
+    }else if(!validName.test(value)){
         return "Name can only contain letters and spaces";
     }
     return "";
@@ -47,16 +47,16 @@ const SignUpForm = () => {
 
     if (!value || value.trim() === "") {
       return "Email field is required";
-    } else if (!validEmail.test(email)) {
+    } else if (!validEmail.test(value)) {
       return "Invalid email address";
     }
     return "";
   };
 
   const validatePassword = (value) => {
-    let hasUpper = /[A-Z]/.test(password);
-    let hasLower = /[a-z]/.test(password);
-    let hasNumber = /[0-9]/.test(password);
+    let hasUpper = /[A-Z]/.test(value);
+    let hasLower = /[a-z]/.test(value);
+    let hasNumber = /[0-9]/.test(value);
 
     if (!value || value.trim() === "") {
       return "Password field is required";

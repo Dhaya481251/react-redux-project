@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/admin/adminController');
-const { adminProtect } = require('../middleware/authMiddleware');
+const { adminProtect, protect } = require('../middleware/authMiddleware');
 
 const multer = require('multer');
 const path = require('path');
@@ -21,5 +21,5 @@ router.get('/home',adminProtect,adminController.adminHome);
 router.get('/users',adminProtect,adminController.getUsers);
 router.put('/users/:id',adminProtect,upload.single("profileImage"),adminController.editUser);
 router.delete('/users/:id',adminProtect,adminController.deleteUser);
-
+router.post('/create',adminController.createUser);
 module.exports = router;

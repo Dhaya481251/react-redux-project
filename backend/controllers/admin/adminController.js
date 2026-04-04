@@ -1,5 +1,6 @@
 const User = require("../../models/userModel");
 const generateToken = require("../../utils/generateToken");
+
 const adminLogin = async(req,res) => {
     try {
         const {email,password} = req.body;
@@ -27,7 +28,7 @@ const adminLogin = async(req,res) => {
             return res.status(400).json('Invalid email or password');
         }
     } catch (err) {
-        return res.status(500).json({error:'Internal server error'});
+        return res.status(500).json({error:err});
     }
 }
 
@@ -35,16 +36,16 @@ const adminHome = async(req,res) => {
     try {
         const adminId = req.admin._id;
         if(!adminId){
-            return res.status(400).json({message:'Welcome to Admin Home. Please login'})
+            return res.status(404).json({message:'AdminId not found'})
         }
 
         const admin = await User.findById(adminId);
         console.log('adminId : ',adminId)
 
-        if(admin){
-            return res.status(200).json({userId:adminId,name:admin.name});
+        if(!admin){
+            return res.status(404).json({message:'Admin not found'});
         }
-        return res.status(404).json({message:'Admin not found'});
+        return res.status(200).json(admin);
     } catch (err) {
         return res.status(500).json({error:"Internal server error"});
     }
@@ -65,7 +66,9 @@ const adminLogout = async(req,res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const { search } = req.query;
+        const { search, page=1 , limit=10 } = req.query;
+        const pageNumber = parseInt(page) || 1;
+        const limitNumber = parseInt(limit) || 5;
 
         let query = { isAdmin: false };
 
@@ -81,11 +84,26 @@ const getUsers = async (req, res) => {
             };
         }
 
-        const users = await User.find(query)
-            .select('-password')
-            .sort({ createdAt: -1 });
+        const skip = (pageNumber-1)*limitNumber;
 
-        res.status(200).json(users);
+        const [users,totalUsers] = await Promise.all([
+            User.find(query)
+            .select('-password')
+            .sort({createdAt:-1})
+            .skip(skip)
+            .limit(limitNumber),
+
+            User.countDocuments(query)
+        ])
+
+        const totalPages = Math.ceil(totalUsers/limitNumber);
+
+        res.status(200).json({users,currentPage:pageNumber,totalPages,totalUsers,hasNext:pageNumber<totalPages,hasPrev:pageNumber>1,limit:limitNumber});
+        // const users = await User.find(query)
+        //     .select('-password')
+        //     .sort({ createdAt: -1 });
+
+        // res.status(200).json(users);
     } catch (error) {
         console.error('Get users error:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -155,12 +173,42 @@ const deleteUser = async(req,res) => {
    return res.status(200).json(users);
 } 
 
+const createUser = async(req,res) => {
+    try {
+        const {name,email,password} = req.body;
+        
+        const userExist = await User.findOne({email});
+
+        if(userExist){
+            return res.status(404).json({message:'User already exists'});
+        }
+
+        const user = await User.create({name,email,password});
+        if(user){
+            const token = generateToken(res,user._id,'user_jwt');
+            return res.status(200).json({
+                _id:user._id,
+                name:user.name,
+                email:user.email,
+                profileImage:user.profileImage,
+                isAdmin:user.isAdmin,
+                token,
+                message:'User created successfully'
+            })
+        }
+        return res.status(400).json({message:'Invalid user data'});
+    } catch (error) {
+        return res.status(500).json({message:error});
+    }
+}
+
 module.exports = {
     adminLogin,
     adminHome,
     adminLogout,
     getUsers,
     editUser,
-    deleteUser
+    deleteUser,
+    createUser,
 }
 

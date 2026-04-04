@@ -1,0 +1,63 @@
+.create{
+    background: #1e293b;
+    padding: 2rem;
+    position: absolute;
+    top: 25%;
+    border: 2px solid #d2b3f5;
+    border-radius: 20px;
+    left: 37%;
+    width: 300px;
+}
+
+.create-title{
+    text-align: center;
+    font-family: monospace;
+    color:white;
+}
+
+.create-form .create-input-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 1rem;
+}
+
+.create-form .create-input-field .create-label{
+    font-family: monospace;
+    color:white;
+}
+
+.create-form .create-submit-btn{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    gap:1rem;
+}
+
+.create-form .create-submit-btn .admin-create-btn{
+    background: white;
+    border-radius: 7px;
+    padding: 10px;
+    color:#260250ba;
+    font-weight: bold;
+}
+
+.create-form .create-submit-btn .create-cancel-btn{
+    background: #e10909ba;
+    border-radius: 7px;
+    padding: 10px;
+    color:white;
+    font-weight: bold;
+}
+
+.create-form .create-input-field .preview-image{
+    display: flex;
+    justify-content: center;
+}
+
+.create-form .create-input-field .preview-image .profile-preview-image{
+    width:50%;
+    border:5px solid #260250ba;
+    border-radius:50%;
+}
+

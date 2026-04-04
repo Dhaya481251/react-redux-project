@@ -17,7 +17,7 @@ app.use("/uploads",express.static(path.join(__dirname,"/uploads")));
 app.use(cors({
     origin: (origin, callback) => {
         const allowedOrigins = ['http://localhost:4000', 'http://localhost:4001'];
-        if (allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
