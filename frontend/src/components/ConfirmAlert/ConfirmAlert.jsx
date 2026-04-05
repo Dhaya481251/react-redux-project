@@ -10,7 +10,7 @@ const ConfirmAlert = ({ open, message, onConfirm, onCancel }) => {
     <div className="overlay">
       <div className="box">
         <div className="icon">
-            <FontAwesomeIcon icon={faCircleExclamation} style={{height:'3em'}}/>
+            <FontAwesomeIcon color="red" style={{ fontSize: "60px", width: "60px", height: "60px" }} icon={faCircleExclamation}/>
         </div>
         <p style={{color:'black',fontWeight:'600',fontSize:'15px'}}>Confirm Deletion</p>
         <p style={{color:'black'}}>{message}</p>

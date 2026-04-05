@@ -4,7 +4,7 @@
     left:0;
     right:0;
     bottom:0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgb(0 0 0 / 6%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,6 +16,7 @@
     border-radius: 8px;
     min-width: 300px;
     text-align: center;
+    box-shadow: 0px 0px 20px 0px #00000047;
 }
 
 .actions{
@@ -27,7 +28,7 @@
 .confirmDeleteButton{
     background: #0077ff;
     border: none;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
     color: white;
 }
@@ -35,7 +36,7 @@
 .confirmCancelButton{
     background: red;
     border: none;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
     color: white;
 }
