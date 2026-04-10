@@ -47,7 +47,7 @@ export const createUser = createAsyncThunk('admin/createUser',async(credentials,
     try {
         const { data } = await api.post('/admin/create',credentials,{withCredentials:true});
         return {...data,role:'user'};
-    } catch (error) {
+    } catch (err) {
         return rejectWithValue(err.response.data.message || 'User creation in admin side failed');
     }
 });
@@ -61,7 +61,8 @@ const initialState = {
     hasPrev:false,
     loading:false,
     error:null,
-    searchQuery:''
+    searchQuery:'',
+    role:localStorage.getItem("role") || null
 }
 const adminSlice = createSlice({
     name:'admin',

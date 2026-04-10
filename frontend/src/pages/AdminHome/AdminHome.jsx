@@ -11,10 +11,11 @@ import { fetchUsers } from '../../features/admin/adminSlice';
 const AdminHome = () => {
   const [activeSection, setActivateSection] = useState('dashboard');
   const admin = useSelector((state) => state.auth.currentUser);
+    const {currentPage,searchQuery} = useSelector((state) => state.admin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers(''));
+    dispatch(fetchUsers());
   },[admin]);
 
   const renderContent = () => {

@@ -11,7 +11,7 @@ import ConfirmAlert from '../ConfirmAlert/ConfirmAlert';
 
 const UsersList = () => {
   const dispatch = useDispatch();
-  const {users,loading,error,currentPage,totalPages,hasNext,hasPrev,searchQuery,admin} = useSelector((state) => state.admin);
+  const {users,loading,error,currentPage,totalPages,hasNext,hasPrev,searchQuery} = useSelector((state) => state.admin);
   const [searchTerm, setSearchTerm] = useState('');
   const [openConfirm, setOpenConfirm] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);

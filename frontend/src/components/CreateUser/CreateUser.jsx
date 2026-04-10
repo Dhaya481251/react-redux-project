@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './CreateUser.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../features/admin/adminSlice';
 
@@ -17,7 +17,9 @@ const CreateUser = () => {
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
-
+    
+    const {loading, error} = useSelector((state) => state.admin);
+    
     const validateName = (value) => {
         let validName = /^[A-Za-z ]+$/;
 
@@ -105,9 +107,9 @@ const CreateUser = () => {
         }
 
         try {
-            await dispatch(createUser({name,email,password}));
+            await dispatch(createUser({name,email,password})).unwrap();
             navigate('/admin');
-        } catch (error) {
+        } catch (err) {
             console.error(err);
         }
     }
@@ -117,6 +119,7 @@ const CreateUser = () => {
     }
 
   return (
+    <>
     <div className='create'>
       <div className="create-title">
         <h1>Create New User</h1>
@@ -143,11 +146,13 @@ const CreateUser = () => {
             {confirmPasswordError && <p className='error'>{confirmPasswordError}</p>}
         </div>
         <div className="create-submit-btn">
-            <button type="submit" className='admin-create-btn'>Create</button>
+            <button type="submit" className='admin-create-btn' disabled={loading}>{loading ? 'Creating' : 'Create'}</button>
             <button type="button" className='create-cancel-btn' onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>
+    {error && <div className="create-error-container">{error}</div>}
+    </>
   )
 }
 

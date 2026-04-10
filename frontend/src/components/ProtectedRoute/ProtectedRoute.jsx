@@ -3,9 +3,12 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({children}) => {
-    const currentUser = useSelector((state) => state.auth.currentUser);
+    const {currentUser,role} = useSelector((state) => state.auth);
+
     if(!currentUser){
         return <Navigate to='/login' replace/>
+    }else if(currentUser && role !== 'user'){
+        return <Navigate to='/admin' replace/>
     }
     return <>{children}</>
 }

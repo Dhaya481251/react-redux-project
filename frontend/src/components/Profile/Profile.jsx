@@ -68,7 +68,7 @@ function Profile() {
 
   useEffect(() => {
       dispatch(fetchUser());
-    },[])
+    },[user])
 
   return (
     <>

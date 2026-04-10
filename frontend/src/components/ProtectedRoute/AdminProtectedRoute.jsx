@@ -7,7 +7,7 @@ const AdminProtectedRoute = ({children}) => {
     if(!currentUser){
         return <Navigate to='/admin/login' replace/>
     }else if(currentUser && role!=='admin'){
-        return <Navigate to='/login/admin' replace/>
+        return <Navigate to='/' replace/>
     }
 
     return <>{children}</>
