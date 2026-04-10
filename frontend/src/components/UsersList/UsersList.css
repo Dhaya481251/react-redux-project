@@ -214,6 +214,10 @@
   padding:0.5rem;
 }
 
+.prev-btn:disabled{
+  background:#4361ee7d
+}
+
 .page-info{
   background:#4361ee;
   padding:0.5rem;
@@ -226,4 +230,8 @@
   border:none;
   border-radius: 5px;
   padding:0.5rem;
+}
+
+.next-btn:disabled{
+  background:#4361ee7d
 }
